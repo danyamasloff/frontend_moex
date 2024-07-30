@@ -1,0 +1,38 @@
+.aggregated-trades {
+    padding: 20px;
+    text-align: center;
+}
+
+.aggregated-trades h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.aggregated-trades table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.aggregated-trades th, .aggregated-trades td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.aggregated-trades th {
+    background-color: #f2f2f2;
+    color: black;
+    text-align: center;
+}
+
+.aggregated-trades tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.aggregated-trades tr:hover {
+    background-color: #ddd;
+}
+
+.aggregated-trades td {
+    text-align: center;
+}
