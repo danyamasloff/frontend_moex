@@ -1,39 +1,53 @@
+/* Основные стили */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f4f4f4;
   margin: 0;
   padding: 0;
+  color: #333;
 }
 
+/* Стили для шапки */
 .app-header {
   text-align: center;
   background-color: #282c34;
   padding: 20px;
   color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-bottom: 3px solid #61dafb;
 }
 
 .app-header h1 {
   margin: 0;
-  font-size: 2em;
+  font-size: 2.5em;
   color: #61dafb;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
 }
 
 .app-header nav {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .app-header nav a {
-  margin: 0 15px;
+  margin: 0 20px;
   color: #61dafb;
   text-decoration: none;
   font-size: 1.2em;
+  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 .app-header nav a:hover {
+  color: #ffffff;
   text-decoration: underline;
 }
 
+/* Основные блоки */
+.app {
+  padding: 40px 20px;
+}
+
+/* Стили фильтров */
 .filters {
   display: flex;
   justify-content: center;
@@ -44,31 +58,46 @@ body {
   margin: 0 10px;
   padding: 10px;
   font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease;
 }
 
+.filters input:focus {
+  border-color: #61dafb;
+  outline: none;
+}
+
+/* Таблицы */
 table {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   border-collapse: collapse;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
-  padding: 12px;
+  padding: 15px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
 th {
-  background-color: #f4f4f4;
+  background-color: #f0f0f0;
   cursor: pointer;
   position: relative;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 th .sort-button {
   background: none;
   border: none;
-  font-size: 12px;
+  font-size: 14px;
   cursor: pointer;
   margin-left: 5px;
   position: absolute;
@@ -77,10 +106,37 @@ th .sort-button {
   transform: translateY(-50%);
 }
 
-tr:hover {
+tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
   background-color: #f1f1f1;
 }
 
 tbody tr:nth-child(even) {
   background-color: #f9f9f9;
+}
+
+/* Кнопки */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #61dafb;
+  color: #fff;
+  font-size: 1em;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #21a1f1;
+  transform: translateY(-2px);
+}
+
+button:active {
+  background-color: #1a91e1;
+  transform: translateY(0);
 }

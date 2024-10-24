@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+/* import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './PredictForm.css';
 
@@ -26,37 +26,14 @@ const PredictForm = () => {
         fetchSecids();
     }, []);
 
-    const fetchPrices = async () => {
-        try {
-            const response = await axios.get('http://localhost:8081/api/aggregated-trades', {
-                params: {
-                    secid: selectedSecid,
-                    startDate: startDate,  // Правильное использование параметров
-                    endDate: endDate        // Правильное использование параметров
-                },
-                auth: {
-                    username: 'maslov',
-                    password: '1234'
-                }
-            });
-            return response.data;
-        } catch (error) {
-            console.error('Ошибка при загрузке цен:', error);
-            return [];
-        }
-    };
-
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const prices = await fetchPrices();
-        if (prices.length === 0) {
-            setPrediction('Нет данных для прогнозирования');
-            return;
-        }
         try {
-            const response = await axios.post('http://localhost:8081/api/predict', { prices }, {
-                headers: {
-                    'Content-Type': 'application/json'
+            const response = await axios.get('http://localhost:8081/api/predict-price', {  // Измени predict на predict-price
+                params: {
+                    secid: selectedSecid,
+                    startDate: startDate,
+                    endDate: endDate
                 },
                 auth: {
                     username: 'maslov',
@@ -107,3 +84,4 @@ const PredictForm = () => {
 };
 
 export default PredictForm;
+*/

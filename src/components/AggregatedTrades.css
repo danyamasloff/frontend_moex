@@ -1,38 +1,70 @@
+/* Стили для плавного появления данных агрегированных сделок */
 .aggregated-trades {
-    padding: 20px;
-    text-align: center;
+    width: 100%;
+    margin: 20px 0;
+    opacity: 0;
+    animation: fadeIn 1.5s forwards;
 }
 
-.aggregated-trades h1 {
-    color: #333;
-    margin-bottom: 20px;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
-.aggregated-trades table {
+table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
 }
 
-.aggregated-trades th, .aggregated-trades td {
+th, td {
+    padding: 12px 15px;
     border: 1px solid #ddd;
-    padding: 8px;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.aggregated-trades th {
-    background-color: #f2f2f2;
-    color: black;
+th {
+    background-color: #f0f0f0;
+    position: relative;
+}
+
+th .sort-icon {
+    display: inline-block;
+    margin-left: 10px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+th:hover .sort-icon {
+    color: #007bff;
+}
+
+th.sort-asc .sort-icon {
+    transform: rotate(180deg);
+    color: #007bff;
+}
+
+th.sort-desc .sort-icon {
+    color: #007bff;
+}
+
+/* Стили для заголовка */
+h1 {
     text-align: center;
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #333;
 }
 
-.aggregated-trades tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.aggregated-trades tr:hover {
-    background-color: #ddd;
-}
-
-.aggregated-trades td {
-    text-align: center;
+/* Стили для сообщений об отсутствии данных */
+.aggregated-trades tbody tr td {
+    text-align: left;
 }

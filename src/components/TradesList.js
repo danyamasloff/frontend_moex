@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './TradesList.css'; // Подключаем обновленный CSS
 
 const TradesList = () => {
     const [trades, setTrades] = useState([]);
@@ -39,7 +40,7 @@ const TradesList = () => {
 
     const filteredTrades = sortedTrades.filter(trade => {
         const matchesDate = filterDate ? trade.systime.startsWith(filterDate) : true;
-        const matchesId = searchId ? trade.id.toString().includes(searchId) : true;
+        const matchesId = searchId ? trade.id === Number(searchId) : true; // Сравниваем ID как число
         const matchesSecid = searchSecid ? trade.secid.includes(searchSecid.toUpperCase()) : true;
         return matchesDate && matchesId && matchesSecid;
     });
@@ -53,9 +54,9 @@ const TradesList = () => {
     };
 
     return (
-        <div>
-            <h1>Список сделок</h1>
-            <div>
+        <div className="trades-list fade-in-hacker">
+            <h1 className="hacker-title">Список сделок</h1>
+            <div className="filters">
                 <label>
                     Поиск по ID:
                     <input
@@ -81,7 +82,7 @@ const TradesList = () => {
                     />
                 </label>
             </div>
-            <table>
+            <table className="hacker-table">
                 <thead>
                 <tr>
                     <th onClick={() => requestSort('id')}>ID</th>

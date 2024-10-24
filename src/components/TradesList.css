@@ -1,25 +1,71 @@
+/* Стили для пустого списка сделок */
 .no-trades {
     text-align: center;
     font-size: 20px;
     margin-top: 20px;
+    opacity: 0;
+    animation: fadeIn 2s 1s forwards;
 }
 
+/* Стили для таблицы сделок */
 table {
     width: 100%;
     border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
 }
 
+/* Стили для ячеек таблицы */
 th, td {
-    padding: 8px 12px;
+    padding: 12px 15px;
     border: 1px solid #ddd;
     text-align: left;
     cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Стили для заголовков таблицы */
 th {
-    background-color: #f2f2f2;
+    background-color: #f0f0f0;
 }
 
 th:hover {
-    background-color: #ddd;
+    background-color: #dcdcdc;
+    color: #333;
+}
+
+/* Стили для строк таблицы при наведении */
+td:hover {
+    background-color: #f9f9f9;
+    color: #000;
+}
+
+/* Плавная анимация появления таблицы */
+.fade-in-hacker {
+    opacity: 0;
+    animation: fadeIn 1.5s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Стили для фильтров */
+.filters input {
+    margin: 5px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease;
+}
+
+.filters input:focus {
+    border-color: #888;
 }
