@@ -7,12 +7,17 @@ const AggregatedTrades = () => {
 
     useEffect(() => {
         axios.get('http://localhost:8081/api/aggregated-trades', {
+            params: {
+                startDate: '2023-07-01',  // Пример начальной даты
+                endDate: '2023-08-01'     // Пример конечной даты
+            },
             auth: {
                 username: 'maslov',
                 password: '1234'
             }
         })
             .then(response => {
+                console.log('Response data:', response.data);  // Логируем данные для проверки
                 setAggregatedTrades(response.data);
             })
             .catch(error => {
@@ -28,17 +33,15 @@ const AggregatedTrades = () => {
                 <tr>
                     <th>Date</th>
                     <th>SECID</th>
-                    <th>Total Quantity</th>
                     <th>Total Value</th>
                 </tr>
                 </thead>
                 <tbody>
-                {aggregatedTrades.map(trade => (
-                    <tr key={`${trade.date}-${trade.secid}`}>
-                        <td>{trade.date}</td>
-                        <td>{trade.secid}</td>
-                        <td>{trade.totalQuantity}</td>
-                        <td>{trade.totalValue}</td>
+                {aggregatedTrades.map((trade, index) => (
+                    <tr key={`${trade[0]}-${index}`}>
+                        <td>{new Date(trade[1]).toLocaleDateString()}</td>
+                        <td>{trade[0]}</td>
+                        <td>{trade[2].toLocaleString()}</td>
                     </tr>
                 ))}
                 </tbody>

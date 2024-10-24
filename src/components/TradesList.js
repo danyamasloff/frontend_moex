@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './TradesList.css';
 
 const TradesList = () => {
     const [trades, setTrades] = useState([]);
     const [sortConfig, setSortConfig] = useState({ key: 'id', direction: 'ascending' });
     const [filterDate, setFilterDate] = useState('');
-    const [filterId, setFilterId] = useState('');
-    const [filterSecid, setFilterSecid] = useState('');
-    const [noTradesFound, setNoTradesFound] = useState(false);
+    const [searchId, setSearchId] = useState('');
+    const [searchSecid, setSearchSecid] = useState('');
 
     useEffect(() => {
         const fetchTrades = async () => {
@@ -41,14 +39,10 @@ const TradesList = () => {
 
     const filteredTrades = sortedTrades.filter(trade => {
         const matchesDate = filterDate ? trade.systime.startsWith(filterDate) : true;
-        const matchesId = filterId ? trade.id.toString().includes(filterId) : true;
-        const matchesSecid = filterSecid ? trade.secid.toLowerCase().includes(filterSecid.toLowerCase()) : true;
+        const matchesId = searchId ? trade.id.toString().includes(searchId) : true;
+        const matchesSecid = searchSecid ? trade.secid.includes(searchSecid.toUpperCase()) : true;
         return matchesDate && matchesId && matchesSecid;
     });
-
-    useEffect(() => {
-        setNoTradesFound(filteredTrades.length === 0);
-    }, [filteredTrades]);
 
     const requestSort = key => {
         let direction = 'ascending';
@@ -61,66 +55,56 @@ const TradesList = () => {
     return (
         <div>
             <h1>Список сделок</h1>
-            <div className="filters">
-                <input
-                    type="text"
-                    placeholder="Поиск по ID"
-                    value={filterId}
-                    onChange={(e) => setFilterId(e.target.value)}
-                />
-                <input
-                    type="text"
-                    placeholder="Поиск по SECID"
-                    value={filterSecid}
-                    onChange={(e) => setFilterSecid(e.target.value)}
-                />
-                <input
-                    type="date"
-                    placeholder="Фильтр по дате (гггг-мм-дд)"
-                    value={filterDate}
-                    onChange={(e) => setFilterDate(e.target.value)}
-                />
+            <div>
+                <label>
+                    Поиск по ID:
+                    <input
+                        type="text"
+                        value={searchId}
+                        onChange={(e) => setSearchId(e.target.value)}
+                    />
+                </label>
+                <label>
+                    Поиск по SECID:
+                    <input
+                        type="text"
+                        value={searchSecid}
+                        onChange={(e) => setSearchSecid(e.target.value)}
+                    />
+                </label>
+                <label>
+                    Дата сделки:
+                    <input
+                        type="date"
+                        value={filterDate}
+                        onChange={(e) => setFilterDate(e.target.value)}
+                    />
+                </label>
             </div>
-            {noTradesFound ? (
-                <div className="no-trades-message">Сделки на выбранную дату не найдены.</div>
-            ) : (
-                <table>
-                    <thead>
-                    <tr>
-                        <th onClick={() => requestSort('id')}>
-                            ID
-                            <button className="sort-button">↕</button>
-                        </th>
-                        <th onClick={() => requestSort('secid')}>
-                            SECID
-                            <button className="sort-button">↕</button>
-                        </th>
-                        <th onClick={() => requestSort('price')}>
-                            Цена
-                            <button className="sort-button">↕</button>
-                        </th>
-                        <th onClick={() => requestSort('quantity')}>
-                            Количество
-                            <button className="sort-button">↕</button>
-                        </th>
-                        <th onClick={() => requestSort('systime')}>
-                            Дата сделки
-                            <button className="sort-button">↕</button>
-                        </th>
+            <table>
+                <thead>
+                <tr>
+                    <th onClick={() => requestSort('id')}>ID</th>
+                    <th onClick={() => requestSort('secid')}>SECID</th>
+                    <th onClick={() => requestSort('price')}>Цена</th>
+                    <th onClick={() => requestSort('quantity')}>Количество</th>
+                    <th onClick={() => requestSort('systime')}>Дата сделки</th>
+                </tr>
+                </thead>
+                <tbody>
+                {filteredTrades.map(trade => (
+                    <tr key={trade.id}>
+                        <td>{trade.id}</td>
+                        <td>{trade.secid}</td>
+                        <td>{trade.price}</td>
+                        <td>{trade.quantity}</td>
+                        <td>{new Date(trade.systime).toLocaleString()}</td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    {filteredTrades.map(trade => (
-                        <tr key={trade.id}>
-                            <td>{trade.id}</td>
-                            <td>{trade.secid}</td>
-                            <td>{trade.price}</td>
-                            <td>{trade.quantity}</td>
-                            <td>{new Date(trade.systime).toLocaleString()}</td> {/* Assuming tradeDate corresponds to systime */}
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
+                ))}
+                </tbody>
+            </table>
+            {filteredTrades.length === 0 && (
+                <div className="no-trades">Сделки на выбранную дату не найдены.</div>
             )}
         </div>
     );
